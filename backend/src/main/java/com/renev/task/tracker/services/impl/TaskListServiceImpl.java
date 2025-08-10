@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
@@ -43,7 +46,26 @@ public class TaskListServiceImpl implements TaskListService {
     }
 
     @Override
-    public TaskList updateTaskList(TaskList taskList) {
-        return null;
+    public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
+        if(taskList.getId() == null) {
+            throw new IllegalArgumentException("Task list ID is required");
+        }
+
+        if(!Objects.equals(taskList.getId(), taskListId)) {
+            throw new IllegalArgumentException("Task list ID does not match");
+        }
+
+        TaskList existingTaskList = taskListRepository.findById(taskListId).orElseThrow(() ->
+                new IllegalArgumentException("Task list not found"));
+
+        existingTaskList.setTitle(taskList.getTitle());
+        existingTaskList.setDescription(taskList.getDescription());
+        existingTaskList.setUpdated(LocalDateTime.now());
+        return taskListRepository.save(existingTaskList);
+    }
+
+    @Override
+    public Optional<TaskList> getTaskList(UUID id) {
+        return taskListRepository.findById(id);
     }
 }
