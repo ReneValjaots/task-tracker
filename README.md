@@ -55,12 +55,15 @@ The application provides fundamental CRUD (Create, Read, Update, Delete) functio
   ```bash
   git clone https://github.com/ReneValjaots/task_tracker.git
   ```
+
 2) **Move to directory**  Run the following command in your terminal:
   ```bash
   cd task_tracker
   ```
+
 3) **Docker compose build**  Run the following command in your terminal:
   ```bash
   docker-compose up --build
   ```
+
 4) **Application url** After the containers are running, the frontend should be accessible at: http://localhost:5173/
