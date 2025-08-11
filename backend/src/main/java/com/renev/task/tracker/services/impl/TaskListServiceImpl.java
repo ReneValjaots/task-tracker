@@ -3,6 +3,7 @@ package com.renev.task.tracker.services.impl;
 import com.renev.task.tracker.domain.entities.TaskList;
 import com.renev.task.tracker.repositories.TaskListRepository;
 import com.renev.task.tracker.services.TaskListService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,6 +46,7 @@ public class TaskListServiceImpl implements TaskListService {
         ));
     }
 
+    @Transactional
     @Override
     public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
         if(taskList.getId() == null) {
