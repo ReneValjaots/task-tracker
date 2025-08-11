@@ -1,0 +1,39 @@
+# Run 'docker-compose build' and 'docker-compose up' from the task_tracker directory.
+version: '3.8'
+
+services:
+  # Frontend service built from the 'frontend' directory
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - VITE_IS_DOCKER=true
+
+  # Backend service built from the 'backend' directory
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # Database service using the official Postgres image
+  db:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: changeMeInProd1!
+    restart: always
+
