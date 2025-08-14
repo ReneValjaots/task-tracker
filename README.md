@@ -53,7 +53,7 @@ The application provides fundamental CRUD (Create, Read, Update, Delete) functio
 ## Step-by-step guide to run
 1) **Clone the repository**  Run the following command in your terminal:
   ```bash
-  git clone https://github.com/ReneValjaots/task_tracker.git
+  git clone https://github.com/ReneValjaots/task-tracker.git
   ```
 
 2) **Move to directory**  Run the following command in your terminal:
